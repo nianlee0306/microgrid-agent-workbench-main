@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12242e">
+  <title>Microgrid Supervisory Workbench</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon-symbols" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M5 12h4l2-4 3 8 2-4h3"/></symbol>
+    <symbol id="i-workspace" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></symbol>
+    <symbol id="i-evaluation" viewBox="0 0 24 24"><path d="M4 4v15h16M8 15v-3m5 3V9m5 6V6"/></symbol>
+    <symbol id="i-tuning" viewBox="0 0 24 24"><path d="M5 4v6m0 4v6M12 4v10m0 4v2M19 4v2m0 4v10M3 10h4m-4 4h4m3 0h4m-4 4h4m3-12h4m-4 4h4"/></symbol>
+    <symbol id="i-voltage" viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-12h-7z"/></symbol>
+    <symbol id="i-frequency" viewBox="0 0 24 24"><path d="M2 12h4l3-8 5 16 3-8h5"/></symbol>
+    <symbol id="i-security" viewBox="0 0 24 24"><path d="M12 22s7-3 7-10V5l-7-3-7 3v7c0 7 7 10 7 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-rows" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14h18M9 9v11"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14m6-14v14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 0 6M4 5v4h4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></symbol>
+    <symbol id="i-model" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4" rx=".5"/><path d="M9 3v3m6-3v3m-6 12v3m6-3v3M3 9h3m-3 6h3m12-6h3m-3 6h3"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-2 2m3 5a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l2-2"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 0v6h6M8 12h8m-8 4h8"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/></symbol>
+  </svg>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Workbench navigation">
+      <a class="brand" href="#workspace" aria-label="Microgrid Workbench home">
+        <span class="brand-mark"><svg class="icon"><use href="#i-grid"></use></svg></span>
+        <span>Microgrid<span class="brand-secondary">Workbench</span></span>
+      </a>
+      <nav class="navigation" aria-label="Workbench views">
+        <a href="#workspace" data-page="workspace" class="navigation-link active" aria-current="page"><svg class="icon"><use href="#i-workspace"></use></svg><span>Agent Workspace</span></a>
+        <a href="#tuning" data-page="tuning" class="navigation-link"><svg class="icon"><use href="#i-tuning"></use></svg><span>Controller Tuning</span></a>
+        <a href="#replay" data-page="replay" class="navigation-link"><svg class="icon"><use href="#i-replay"></use></svg><span>Run Replay</span></a>
+        <a href="#evaluation" data-page="evaluation" class="navigation-link"><svg class="icon"><use href="#i-evaluation"></use></svg><span>Evaluation</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-status"><span class="status-dot"></span> Historical replay</div>
+        <div class="sidebar-org">Research prototype</div>
+      </div>
+    </aside>
+
+    <div class="body-shell">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Microgrid research</span><span class="breadcrumb-divider" aria-hidden="true">/</span><strong id="breadcrumb-page">Agent Workspace</strong></div>
+        <div class="topbar-actions">
+          <span class="badge badge-mode" id="mode-badge"><span class="status-dot"></span><span id="mode-label">Loading model…</span></span>
+        </div>
+      </header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="hero">
+          <div>
+            <h1 id="heading">Agent Workspace</h1>
+            <p id="subheading">Inspect imported controller telemetry and review a recorded experiment window.</p>
+          </div>
+        </div>
+
+        <div class="notice notice-error" role="alert" id="global-error" hidden></div>
+
+        <aside id="recording-import" class="notice notice-info recording-import" aria-label="Import experiment recordings" hidden>
+          <strong>Import your Google Drive recordings</strong>
+          <p>Download the authorized CSVs and original import manifest into <code>data/raw/</code>, run the importer from the repository, then restart FastAPI.</p>
+          <code>python -m app.cli import --source-dir data/raw --manifest data/raw/manifest.json</code>
+        </aside>
+
+        <section id="role-settings" class="role-settings" aria-labelledby="role-settings-heading">
+          <h2 id="role-settings-heading" class="section-label">Agent role</h2>
+          <div id="agent-picker" class="agent-picker" role="group" aria-label="Select an Agent role"></div>
+        </section>
+
+        <section id="model-settings" class="card model-settings" aria-labelledby="model-settings-heading">
+          <div class="model-heading">
+            <span class="model-icon"><svg class="icon" aria-hidden="true"><use href="#i-model"></use></svg></span>
+            <div>
+              <h2 id="model-settings-heading">Agent model</h2>
+              <p id="selected-model" class="selected-model" aria-live="polite">Loading model options…</p>
+            </div>
+          </div>
+          <div id="model-options" class="model-options" role="group" aria-label="Select an Agent model"></div>
+          <label class="field model-mode" id="mode-control" hidden><span>Inference mode</span><select id="mode-select"></select></label>
+        </section>
+
+        <aside class="tuning-entry" id="tuning-entry" aria-label="PI controller tuning">
+          <span class="tuning-entry-icon"><svg class="icon" aria-hidden="true"><use href="#i-tuning"></use></svg></span>
+          <div><strong>PI Controller Tuning</strong><p>Let the Agent propose gains and compare the response before applying them to the simulator.</p></div>
+          <a class="button button-secondary" id="open-tuning" href="#tuning">Open Controller Tuning</a>
+        </aside>
+
+        <form id="scope" class="scope card" aria-label="Experiment and window">
+          <label class="field scope-run"><span>Experiment run</span><select id="run-select" required aria-describedby="run-detail"><option value="">Loading runs…</option></select><small id="run-detail"></small></label>
+          <div class="scope-fields">
+            <label class="field"><span id="start-label">Start (s)</span><input id="window-start" type="number" inputmode="decimal" step="any" required></label>
+            <label class="field"><span id="end-label">End (s)</span><input id="window-end" type="number" inputmode="decimal" step="any" required></label>
+          </div>
+          <button type="submit" class="button button-secondary" id="apply-window">Apply window</button>
+          <div class="notice notice-error scope-error" id="scope-error" role="alert" hidden></div>
+          <div class="notice notice-info scope-error" id="scope-notice" role="status" hidden></div>
+        </form>
+
+        <div id="workspace" class="workspace-grid">
+          <div class="workspace-primary">
+            <section class="card controller" id="controller" aria-labelledby="controller-heading">
+              <div class="card-header controller-header">
+                <div>
+                  <div class="section-label"><svg class="icon"><use href="#i-frequency"></use></svg> Controller</div>
+                  <h2 id="controller-heading">Controller telemetry</h2>
+                  <p class="muted" id="window-caption">Loading the selected experiment…</p>
+                </div>
+                <span class="badge badge-source" id="source-badge" hidden></span>
+              </div>
+              <div id="chart-container" class="chart-container">
+                <div class="chart-bar">
+                  <div id="chart-units" class="unit-switch" aria-label="Signal units"></div>
+                  <span id="chart-window-id" class="chart-window-id"></span>
+                </div>
+                <div class="chart-plot" id="chart-plot">
+                  <canvas id="chart" aria-label="Signals in the selected experiment window" role="img"></canvas>
+                  <div id="chart-empty" class="chart-empty">Loading telemetry…</div>
+                  <div id="chart-tooltip" class="chart-tooltip" hidden></div>
+                </div>
+                <div class="chart-legend" id="chart-legend" aria-label="Chart signals"></div>
+              </div>
+              <div class="controller-meta" id="controller-meta">
+                <div><svg class="icon"><use href="#i-rows"></use></svg><span><small>Window samples</small><strong id="sample-count">—</strong></span></div>
+                <div><svg class="icon"><use href="#i-clock"></use></svg><span><small>Time basis</small><strong id="time-basis">—</strong></span></div>
+                <div><svg class="icon"><use href="#i-terminal"></use></svg><span><small>Recorded PI state</small><strong id="recorded-state">—</strong></span></div>
+              </div>
+              <div class="controller-footer" id="controller-actions">
+                <span class="muted" id="backend-label"></span>
+                <button class="button button-primary" type="button" id="analyze" disabled>Analyze selected window<svg class="icon"><use href="#i-arrow"></use></svg></button>
+              </div>
+              <div class="replay-controls" id="replay-controls" hidden>
+                <button class="button button-primary icon-button" type="button" id="replay-play" aria-label="Play replay" title="Play replay"><svg class="icon"><use href="#i-play"></use></svg></button>
+                <button class="button button-secondary icon-button" type="button" id="replay-reset" aria-label="Return to start" title="Return to start"><svg class="icon"><use href="#i-reset"></use></svg></button>
+                <label class="replay-progress"><span id="replay-position" class="tabular">—</span><input id="replay-seek" type="range" min="0" max="1000" value="0" aria-label="Replay position"></label>
+                <label class="field replay-rate"><span class="sr-only">Playback speed</span><select id="replay-rate"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+              </div>
+              <details id="signal-details" class="signal-details" hidden>
+                <summary>Available signals and sources</summary>
+                <div id="signal-list"></div>
+              </details>
+            </section>
+
+            <section class="card audit-card" id="audit" aria-labelledby="audit-heading" hidden>
+              <div class="card-header audit-header">
+                <div><h2 id="audit-heading">Controller tool calls</h2><p class="muted" id="audit-description"></p></div>
+                <div class="review-selector" id="review-selector" hidden><label class="sr-only" for="review-select">Review history</label><select id="review-select"></select></div>
+              </div>
+              <div id="tool-calls" class="tool-calls"></div>
+            </section>
+            <section class="card replay-evidence" id="replay-evidence" hidden><div class="card-header"><h2>Window evidence</h2><p class="muted">Use this identifier to match the selected replay window to a Controller report.</p></div><div id="replay-evidence-body" class="replay-evidence-body"></div></section>
+          </div>
+
+          <section class="card agent-panel" id="agent-panel" aria-labelledby="agent-heading">
+            <div class="agent-panel-heading">
+              <span class="agent-avatar" id="agent-avatar"><svg class="icon"><use href="#i-voltage"></use></svg></span>
+              <div><div class="section-label">Selected agent</div><h2 id="agent-heading">Voltage Control Agent</h2></div>
+            </div>
+            <p id="agent-description" class="agent-description"></p>
+            <div class="agent-section">
+              <h3>Quick tasks</h3>
+              <div class="quick-tasks" id="quick-tasks"></div>
+              <details class="agent-tool-list" id="tool-list-details" hidden>
+                <summary>Available tools</summary>
+                <ul id="allowed-tools"></ul>
+              </details>
+            </div>
+            <form id="question-form" class="question-form">
+              <label class="field"><span>Ask about this window</span><textarea id="question" maxlength="1000" rows="2" placeholder="What should I check in this window?" required></textarea></label>
+              <button class="button button-secondary question-submit" id="question-submit" type="submit" disabled>Send question<svg class="icon"><use href="#i-arrow"></use></svg></button>
+            </form>
+            <div class="agent-section review-section">
+              <h3>Agent review</h3>
+              <div id="review-message" class="review-message" aria-live="polite">Select a task to review the current window.</div>
+              <div id="review-result" hidden></div>
+            </div>
+          </section>
+        </div>
+
+        <section id="tuning" class="tuning-view" aria-label="Controller Tuning" hidden>
+          <div class="notice tuning-scope">
+            <svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg>
+            <div><strong>Isolated controller sandbox</strong><p>Gain changes apply to this browser session’s synthetic closed-loop simulation.</p></div>
+          </div>
+          <div class="tuning-grid">
+            <section class="card tuning-card" aria-labelledby="active-controller-heading">
+              <div class="card-header">
+                <div><div class="section-label"><svg class="icon" aria-hidden="true"><use href="#i-tuning"></use></svg> Active configuration</div><h2 id="active-controller-heading">PI controller</h2><p id="tuning-scenario" class="muted"></p></div>
+                <span id="tuning-revision" class="badge badge-source">Loading</span>
+              </div>
+              <div class="tuning-card-body">
+                <div class="tuning-gains">
+                  <div class="tuning-gain"><span>Proportional gain</span><strong class="tabular" id="tuning-active-kp">—</strong><code>Kp</code></div>
+                  <div class="tuning-gain"><span>Integral gain</span><strong class="tabular" id="tuning-active-ki">—</strong><code>Ki</code></div>
+                </div>
+                <div class="tuning-control-actions">
+                  <button class="button button-secondary" type="button" id="tuning-rollback" disabled><svg class="icon" aria-hidden="true"><use href="#i-reset"></use></svg>Roll back gains</button>
+                </div>
+              </div>
+            </section>
+            <section class="card tuning-card" aria-labelledby="tuning-agent-heading">
+              <div class="card-header">
+                <div><div class="section-label"><svg class="icon" aria-hidden="true"><use href="#i-model"></use></svg> Agent-to-controller</div><h2 id="tuning-agent-heading">Gain proposal</h2><p id="tuning-agent-caption" class="muted"></p></div>
+                <span id="tuning-validation" class="badge badge-status" hidden></span>
+              </div>
+              <div class="tuning-card-body">
+                <div id="tuning-candidate" class="tuning-gains" hidden>
+                  <div class="tuning-gain candidate"><span>Proposed proportional gain</span><strong class="tabular" id="tuning-candidate-kp">—</strong><code>Kp</code></div>
+                  <div class="tuning-gain candidate"><span>Proposed integral gain</span><strong class="tabular" id="tuning-candidate-ki">—</strong><code>Ki</code></div>
+                </div>
+                <p id="tuning-gain-change" class="muted tabular" hidden></p>
+                <details id="tuning-rationale-details" class="agent-tool-list" hidden>
+                  <summary>Model rationale</summary>
+                  <p id="tuning-rationale" class="muted"></p>
+                </details>
+                <ul id="tuning-reasons" class="tuning-reasons" hidden></ul>
+                <div class="tuning-control-actions">
+                  <button class="button button-primary" type="button" id="tuning-propose" disabled><svg class="icon" aria-hidden="true"><use href="#i-model"></use></svg>Propose and simulate gains</button>
+                  <button class="button button-secondary" type="button" id="tuning-apply" disabled>Apply gains to sandbox</button>
+                </div>
+                <label class="tuning-auto"><input id="tuning-auto-apply" type="checkbox" disabled> Apply automatically when verified</label>
+              </div>
+            </section>
+          </div>
+          <div class="notice" id="tuning-message" role="status" hidden></div>
+          <section class="card tuning-response" aria-labelledby="tuning-response-heading">
+            <div class="card-header">
+              <div><h2 id="tuning-response-heading">Closed-loop response</h2><p class="muted">Compare both gain sets on the same normalized plant and reference.</p><p class="muted" id="tuning-backend-note" hidden></p></div>
+              <span id="tuning-backend" class="badge badge-source" hidden></span>
+            </div>
+            <div class="chart-container tuning-chart-container">
+              <div class="chart-bar">
+                <div class="unit-switch" role="group" aria-label="Simulation signal">
+                  <button type="button" class="unit-button" id="tuning-show-output" aria-pressed="true">Plant response</button>
+                  <button type="button" class="unit-button" id="tuning-show-command" aria-pressed="false">Controller command</button>
+                </div>
+                <span class="chart-window-id">Normalized values</span>
+              </div>
+              <div class="chart-plot tuning-chart-plot" id="tuning-chart-plot">
+                <canvas id="tuning-chart" role="img" aria-label="Simulated reference, baseline and candidate closed-loop responses"></canvas>
+                <div id="tuning-chart-empty" class="chart-empty">Run a gain proposal to compare responses.</div>
+                <div id="tuning-chart-tooltip" class="chart-tooltip" hidden></div>
+              </div>
+              <ul class="tuning-legend" id="tuning-legend" aria-label="Response series" hidden></ul>
+            </div>
+            <div class="table-scroll tuning-metrics" id="tuning-metrics" hidden>
+              <table class="data-table" aria-label="Simulation metrics"><thead><tr><th scope="col">Metric</th><th scope="col">Baseline</th><th scope="col">Candidate</th><th scope="col">Change</th></tr></thead><tbody id="tuning-metric-rows"></tbody></table>
+            </div>
+          </section>
+          <section class="card tuning-trace" id="tuning-trace" aria-labelledby="tuning-trace-heading" hidden>
+            <div class="card-header"><div><h2 id="tuning-trace-heading">Controller interaction</h2><p id="tuning-trace-caption" class="muted"></p></div></div>
+            <div id="tuning-trace-events" class="tuning-trace-events"></div>
+          </section>
+        </section>
+
+        <section id="evaluation" class="evaluation" aria-label="Evaluation" hidden>
+          <div class="card evaluation-intro">
+            <div class="card-header">
+              <div><div class="section-label"><svg class="icon"><use href="#i-evaluation"></use></svg> Paired comparison</div><h2>Recorded evaluation windows</h2><p class="muted">Compare the rules baseline, the Agent’s recommendation, and the verified recommendation on labeled recording windows.</p></div>
+              <button class="button button-primary" type="button" id="run-evaluation" disabled>Run evaluation<svg class="icon"><use href="#i-arrow"></use></svg></button>
+            </div>
+            <div class="table-scroll"><table class="data-table"><thead><tr><th scope="col">Case</th><th scope="col">Experiment run</th><th scope="col">Window</th><th scope="col">Expected recommendation</th></tr></thead><tbody id="case-list"><tr><td colspan="4">Loading cases…</td></tr></tbody></table></div>
+          </div>
+          <div class="notice" id="evaluation-message" role="status" hidden></div>
+          <section class="card evaluation-results" id="evaluation-results" aria-labelledby="evaluation-results-heading" hidden>
+            <div class="card-header">
+              <div><h2 id="evaluation-results-heading">Comparison results</h2><p class="muted" id="evaluation-summary"></p></div>
+              <div class="export-buttons">
+                <button class="button button-secondary" type="button" id="export-json"><svg class="icon"><use href="#i-download"></use></svg>JSON</button>
+                <button class="button button-secondary" type="button" id="export-csv"><svg class="icon"><use href="#i-download"></use></svg>CSV</button>
+              </div>
+            </div>
+            <div class="table-scroll"><table class="data-table metric-table"><thead><tr><th scope="col">Metric</th><th scope="col">Rules baseline</th><th scope="col">Original agent</th><th scope="col">Agent + validator</th></tr></thead><tbody id="metric-list"></tbody></table></div>
+            <div class="evaluation-notes" id="evaluation-notes"></div>
+            <div id="case-results" class="case-results"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+  <noscript><p class="noscript">Enable JavaScript to inspect runs and use the workbench.</p></noscript>
+</body>
+</html>
