@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "runs": [
+    {
+      "run_id": "demo-voltage-a",
+      "file": "synthetic_voltage_a.csv",
+      "label": "Voltage PI · baseline",
+      "category": "voltage_baseline",
+      "source": "Synthetic MATLAB voltage summary",
+      "time_basis": "elapsed_seconds",
+      "timezone": "unknown"
+    },
+    {
+      "run_id": "demo-frequency-a",
+      "file": "synthetic_frequency_a.csv",
+      "label": "Frequency PI · baseline",
+      "category": "frequency_baseline",
+      "source": "Synthetic MATLAB frequency summary",
+      "time_basis": "elapsed_seconds",
+      "timezone": "unknown"
+    },
+    {
+      "run_id": "demo-frequency-b",
+      "file": "synthetic_frequency_b.csv",
+      "label": "Frequency PI · oscillatory",
+      "category": "frequency_oscillatory",
+      "source": "Synthetic MATLAB frequency summary",
+      "time_basis": "elapsed_seconds",
+      "timezone": "unknown"
+    },
+    {
+      "run_id": "demo-voltage-b",
+      "file": "synthetic_voltage_b.csv",
+      "label": "Voltage PI · partial record",
+      "category": "voltage_partial",
+      "source": "Synthetic MATLAB voltage summary",
+      "time_basis": "elapsed_seconds",
+      "timezone": "unknown"
+    },
+    {
+      "run_id": "demo-mechanical-a",
+      "file": "synthetic_labvolt_a.csv",
+      "label": "LabVolt · mechanical-only",
+      "category": "mechanical_only",
+      "source": "Synthetic LabVolt mechanical export",
+      "time_basis": "sample_index",
+      "timezone": "unknown"
+    }
+  ]
+}

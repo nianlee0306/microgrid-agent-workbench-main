@@ -1,0 +1,114 @@
+[
+  {
+    "case_id": "E01",
+    "condition": "clean",
+    "agent_id": "voltage",
+    "task": "diagnose_voltage",
+    "run_id": "demo-voltage-a",
+    "start": 2,
+    "end": 10,
+    "signal_ids": [
+      "va_rms",
+      "vb_rms",
+      "vc_rms",
+      "controller_state"
+    ],
+    "ground_truth": "CONTINUE_MONITORING",
+    "quality_overrides": {}
+  },
+  {
+    "case_id": "E02",
+    "condition": "missing",
+    "agent_id": "voltage",
+    "task": "diagnose_voltage",
+    "run_id": "demo-voltage-b",
+    "start": 2,
+    "end": 10,
+    "signal_ids": [
+      "va_rms",
+      "vb_rms",
+      "vc_rms",
+      "controller_state"
+    ],
+    "ground_truth": "INSUFFICIENT_EVIDENCE",
+    "quality_overrides": {}
+  },
+  {
+    "case_id": "E03",
+    "condition": "stale",
+    "agent_id": "frequency",
+    "task": "diagnose_frequency",
+    "run_id": "demo-frequency-a",
+    "start": 2,
+    "end": 10,
+    "signal_ids": [
+      "frequency_actual_hz",
+      "frequency_feedback_hz",
+      "speed_estimated_rpm",
+      "controller_state"
+    ],
+    "ground_truth": "INSUFFICIENT_EVIDENCE",
+    "quality_overrides": {
+      "replay_clock": 20
+    }
+  },
+  {
+    "case_id": "E04",
+    "condition": "unit_mismatch",
+    "agent_id": "frequency",
+    "task": "diagnose_frequency",
+    "run_id": "demo-frequency-a",
+    "start": 3,
+    "end": 11,
+    "signal_ids": [
+      "frequency_actual_hz",
+      "frequency_feedback_hz",
+      "speed_estimated_rpm",
+      "controller_state"
+    ],
+    "ground_truth": "REQUEST_REVIEW",
+    "quality_overrides": {
+      "unit_mismatches": [
+        "frequency_actual_hz"
+      ]
+    }
+  },
+  {
+    "case_id": "E05",
+    "condition": "source_mismatch",
+    "agent_id": "frequency",
+    "task": "diagnose_frequency",
+    "run_id": "demo-frequency-b",
+    "start": 2,
+    "end": 10,
+    "signal_ids": [
+      "frequency_actual_hz",
+      "frequency_feedback_hz",
+      "speed_estimated_rpm",
+      "controller_state"
+    ],
+    "ground_truth": "REQUEST_REVIEW",
+    "quality_overrides": {
+      "source_conflicts": [
+        "frequency_feedback_hz"
+      ]
+    }
+  },
+  {
+    "case_id": "E06",
+    "condition": "clean",
+    "agent_id": "frequency",
+    "task": "diagnose_frequency",
+    "run_id": "demo-frequency-b",
+    "start": 1,
+    "end": 9,
+    "signal_ids": [
+      "frequency_actual_hz",
+      "frequency_feedback_hz",
+      "speed_estimated_rpm",
+      "controller_state"
+    ],
+    "ground_truth": "REQUEST_REVIEW",
+    "quality_overrides": {}
+  }
+]
