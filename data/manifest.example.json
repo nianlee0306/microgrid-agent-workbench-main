@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "run_id": "example-frequency-01",
+      "file": "frequency-summary.csv",
+      "label": "Example frequency summary",
+      "category": "frequency_control",
+      "source": "Example MATLAB frequency summary",
+      "time_basis": "elapsed_seconds",
+      "timezone": "unknown",
+      "fields": {
+        "v_positive_rms": "Vpositive_RMS",
+        "frequency_actual_hz": "FrequencyActual_Hz",
+        "frequency_feedback_hz": "FrequencyFeedback_Hz",
+        "speed_estimated_rpm": "SpeedActual_rpm"
+      },
+      "units": {
+        "v_positive_rms": "V",
+        "frequency_actual_hz": "Hz",
+        "frequency_feedback_hz": "Hz",
+        "speed_estimated_rpm": "rpm"
+      }
+    },
+    {
+      "run_id": "example-voltage-01",
+      "file": "voltage-summary.csv",
+      "label": "Example voltage summary",
+      "category": "voltage_control",
+      "source": "Example MATLAB voltage summary",
+      "time_basis": "elapsed_seconds",
+      "timezone": "unknown"
+    },
+    {
+      "run_id": "example-mechanical-01",
+      "file": "mechanical-recording.csv",
+      "label": "Example mechanical recording",
+      "category": "mechanical_recording",
+      "source": "Example LabVolt mechanical CSV",
+      "time_basis": "sample_index",
+      "timezone": "unknown"
+    }
+  ],
+  "verified_alignments": []
+}
